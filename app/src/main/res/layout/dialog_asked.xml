@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/card_drawable"
+              android:padding="5dp">
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="120dp"
+        android:textSize="18sp"
+        android:hint="Asked your question?"
+        android:padding="5dp"
+        android:id="@+id/textView2"/>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/gray_default" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:text="Asked"
+            android:padding="5dp"
+            android:gravity="center"
+            android:id="@+id/askedTextView"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="4dp"
+            android:background="@color/gray_default" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:text="Cancel"
+            android:gravity="center"
+            android:padding="5dp"
+            android:id="@+id/cancelTextView"/>
+    </LinearLayout>
+</LinearLayout>

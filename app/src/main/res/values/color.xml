@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gray_default">#cccccc</color>
+    <color name="header_blue">#1491de</color>
+    <color name="header_background">#17365D</color>
+    <color name="sliderBgColor">#606060</color>
+    <color name="sliderItemColor">#606060</color>
+    <color name="deepBlue">#4db1d0</color>
+</resources>

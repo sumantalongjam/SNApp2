@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="science_chapter">
+        <item>Chemical Reactions and Equations</item>
+        <item>Acids, Bases and Salts</item>
+        <item>Metals and Non-metals</item>
+        <item>Carbon and its Compounds</item>
+        <item>Periodic Classification of Elements</item>
+        <item>Life Processes</item>
+        <item>Control and Coordination</item>
+        <item>How do Organisms Reproduce?</item>
+        <item>Heredity and Evolution</item>
+        <item>Light-Reflection and Refraction</item>
+        <item>Human Eye and Colourful World</item>
+        <item>Electricity</item>
+        <item>Magnetic Effects of Electric Current</item>
+        <item>Sources of Energy</item>
+        <item>Our Environment</item>
+        <item>Management of Natural Resources</item>
+    </string-array>
+
+</resources>
