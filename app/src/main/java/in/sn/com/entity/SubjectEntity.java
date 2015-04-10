@@ -6,14 +6,19 @@ package in.sn.com.entity;
 public class SubjectEntity {
     private int subjectImageId;
     private String subjectName;
-    public SubjectEntity(int subjectImageId, String subjectName) {
+    private String subjectCode;
+    public SubjectEntity(int subjectImageId, String subjectName, String subjectCode) {
         this.subjectImageId = subjectImageId;
         this.subjectName = subjectName;
+        this.subjectCode = subjectCode;
     }
     public int getSubjectImageId() {
         return subjectImageId;
     }
     public String getSubjectName() {
         return subjectName;
+    }
+    public String getSubjectCode() {
+        return subjectCode;
     }
 }

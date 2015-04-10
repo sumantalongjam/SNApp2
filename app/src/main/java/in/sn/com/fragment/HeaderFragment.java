@@ -21,7 +21,7 @@ public class HeaderFragment extends SNFragment {
         View view = inflater.inflate(R.layout.fragment_header, container, false);
         TextView headerTitle = (TextView) view.findViewById(R.id.headerTextView);
         ImageView question = (ImageView) view.findViewById(R.id.questionBtn);
-        String title = getArguments().getString(SELECTED_SLIDER, "");
+        String title = getArguments().getString(TITLE, "");
         if(title.equals("Home")) {
             question.setVisibility(View.VISIBLE);
             question.setOnClickListener(askedListener);

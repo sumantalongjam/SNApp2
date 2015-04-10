@@ -43,7 +43,10 @@ public class SliderFragment extends SNFragment {
                 public void onClick(View v) {
                     if(!v.getTag().equals("Logout"))
                         Util.clearBackStack(mainActivity.getSupportFragmentManager());
-                    mainActivity.setBundle(seqData);
+                    if(v.getTag().equals("Home") || v.getTag().equals("Logout"))
+                        mainActivity.setBundle(seqData, seqData);
+                    else
+                        mainActivity.setBundle("Subjects", seqData);
                     mainActivity.changeFragment(mainActivity.getBundle());
                 }
             });

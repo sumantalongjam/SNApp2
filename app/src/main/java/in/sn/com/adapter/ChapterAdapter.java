@@ -6,23 +6,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.List;
+
 import in.sn.com.activity.R;
 
 public class ChapterAdapter extends BaseAdapter {
 
 	Context context;
-	String[] chapterArray;
-	public ChapterAdapter(Context context, String[] chapterArray) {
+    List<String> chapterList;
+	public ChapterAdapter(Context context, List<String> chapterList) {
 		this.context = context;
-		this.chapterArray = chapterArray;
+		this.chapterList = chapterList;
 	}
 	@Override
 	public int getCount() {
-		return chapterArray.length;
+		return chapterList.size();
 	}
 	@Override
 	public String getItem(int position) {
-		return chapterArray[position];
+		return chapterList.get(position);
 	}
 	@Override
 	public long getItemId(int position) {

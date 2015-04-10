@@ -48,15 +48,16 @@ public class MainActivity extends FragmentActivity implements KeyID, ChangeFragm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         slidingPaneLayout = (SNSlidingPanel) findViewById(R.id.parent);
-        setBundle("Home");
+        setBundle("Home", "Home");
         pageFragment = new HomeFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.sideNavigationPanel, new SliderFragment()).commit();
         updateFragment(getBundle());
     }
 
-    public Bundle setBundle(String data) {
+    public Bundle setBundle(String page, String title) {
         bundle = new Bundle();
-        bundle.putString(SELECTED_SLIDER, data);
+        bundle.putString(PAGE, page);
+        bundle.putString(TITLE, title);
         return bundle;
     }
 
@@ -97,7 +98,7 @@ public class MainActivity extends FragmentActivity implements KeyID, ChangeFragm
 
     @Override
     public void changeFragment(Bundle bundle) {
-        if ((bundle.getString(SELECTED_SLIDER).toString()).equals("Logout")) {
+        if ((bundle.getString(PAGE).toString()).equals("Logout")) {
             SNAlertDialog dialog = new SNAlertDialog(this, true) {
                 @Override
                 public void onConfirmation() {
@@ -116,117 +117,32 @@ public class MainActivity extends FragmentActivity implements KeyID, ChangeFragm
             updateFragment(bundle);
         }
     }
-
     public void fragmentSelector(Bundle bundle) {
-        String data = bundle.getString(SELECTED_SLIDER);
+        String data = bundle.getString(PAGE);
         if(data.equalsIgnoreCase("Home")) {
             SNFragment fragment = new HomeFragment();
             fragment.setArguments(bundle);
             pageFragment = fragment;
         }
-        else if(data.equalsIgnoreCase("Science Chapters")) {
-            SNFragment fragment = new ChapterFragment();
-            fragment.setArguments(bundle);
-            pageFragment = fragment;
-        }
-        else {
+        else if(data.equalsIgnoreCase("Subjects")){
             SNFragment fragment = new SubjectFragment();
             fragment.setArguments(bundle);
             pageFragment = fragment;
         }
-    }
+        else if(data.equalsIgnoreCase("Chapters")) {
+            SNFragment fragment = new ChapterFragment();
+            fragment.setArguments(bundle);
+            pageFragment = fragment;
+        }
 
+    }
     @Override
     public void onBackPressed() {
-
         if (slidingPaneLayout.isOpen())
             slidingPaneLayout.closePane();
         else {
             Util.clearBackStack(getSupportFragmentManager());
             super.onBackPressed();
         }
-
-    }
-
-    ImageView image;
-    String imageString;
-
-    public String getImageString() {
-        if (imageString != null)
-            return imageString;
-        else
-            return "";
-    }
-
-    public void onImageClick(ImageView image) {
-        this.image = image;
-        final CharSequence[] items = {"Take Photo", "Choose from Library", "Cancel"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Add Photo!");
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
-                if (items[item].equals("Take Photo")) {
-                    Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                    File file = new File(Environment.getExternalStorageDirectory() + File.separator + "img.jpg");
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-                    startActivityForResult(intent, 1);
-                } else if (items[item].equals("Choose from Library")) {
-                    Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(i, 100);
-                } else if (items[item].equals("Cancel")) {
-                    dialog.dismiss();
-                }
-            }
-        });
-        builder.show();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Bitmap photo = null;
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            File file = new File(Environment.getExternalStorageDirectory() + File.separator + "img.jpg");
-            try {
-                cropCapturedImage(Uri.fromFile(file));
-            } catch (ActivityNotFoundException aNFE) {
-            }
-        } else if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
-            Bundle extras = data.getExtras();
-            photo = extras.getParcelable("data");
-            if (photo != null) {
-                image.setImageBitmap(photo);
-                imageString = Util.encodeTobase64(photo);
-            }
-        } else if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
-            Cursor cursor = getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
-            File file = new File(picturePath);
-            try {
-                cropCapturedImage(Uri.fromFile(file));
-            } catch (ActivityNotFoundException aNFE) {
-            }
-            photo = BitmapFactory.decodeFile(picturePath);
-        }
-    }
-
-    public void cropCapturedImage(Uri picUri) {
-        Intent cropIntent = new Intent("com.android.camera.action.CROP");
-        cropIntent.setDataAndType(picUri, "image/*");
-        cropIntent.putExtra("crop", "true");
-        cropIntent.putExtra("aspectX", 1);
-        cropIntent.putExtra("aspectY", 1);
-        cropIntent.putExtra("outputX", 256);
-        cropIntent.putExtra("outputY", 256);
-        cropIntent.putExtra("return-data", true);
-        startActivityForResult(cropIntent, 2);
     }
 }
